@@ -1,0 +1,4 @@
+GET https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=NSE:ICICIBANK&interval=5min&apikey=1FOSNJ7885JNM7VO
+
+###
+GET https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=IBM&apikey=1FOSNJ7885JNM7VO
