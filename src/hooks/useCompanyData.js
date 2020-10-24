@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { getCompanyInfo, getStockDailyData } from "../utility/api";
+import { functions } from "../constants/apiInfo";
 import preprocess from "../utility/preprocess";
+import { getDataFromAPI } from "../utility/requests";
 import summarizeData from "../utility/summarize";
 
 const useCompanyData = (company) => {
@@ -8,8 +9,11 @@ const useCompanyData = (company) => {
 
   useEffect(() => {
     const getCompanyData = async () => {
-      const stockResponse = await getStockDailyData(company);
-      const companyResponse = await getCompanyInfo(company);
+      const stockResponse = await getDataFromAPI(
+        company,
+        functions.dailyStockPrice
+      );
+      const companyResponse = await getDataFromAPI(company, functions.overview);
       setCompanyData({
         ...extractStockData(stockResponse),
         companyName: getCompanyName(companyResponse),
@@ -33,6 +37,6 @@ const extractStockData = ({ data }) => {
   return { dataSummary, timeSeriesList };
 };
 
-const getCompanyName = ({ data }) => data[0].companyName;
+const getCompanyName = ({ data }) => data.Name;
 
 export default useCompanyData;
