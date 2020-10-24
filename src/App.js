@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import "./App.css";
-import { Company } from "./Company";
-import TICKERS from "./data/tickers";
+import { Company } from "./components/Company";
+import { Selector } from "./components/Selector";
 
 function App() {
-  const tickers = TICKERS;
-  const [company, setCompany] = useState(tickers[0]);
+  const [company, setCompany] = useState("");
 
   const handleChange = (event) => {
     setCompany(event.target.value);
@@ -13,12 +12,8 @@ function App() {
 
   return (
     <div className="app">
-      <select onChange={handleChange}>
-        {tickers.map((ticker) => (
-          <option value={ticker}>{ticker}</option>
-        ))}
-      </select>
-      <Company company={company} />
+      <Selector handleChange={handleChange} />
+      {company && <Company company={company} />}
     </div>
   );
 }
